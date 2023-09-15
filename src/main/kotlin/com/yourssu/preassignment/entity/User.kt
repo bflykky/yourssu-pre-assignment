@@ -8,32 +8,35 @@ import javax.persistence.Id
 import javax.persistence.OneToMany
 import javax.validation.constraints.Email
 import lombok.Getter
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 
 @Entity
 @Getter
-class User (
+class User(
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private var id: Long,
+    val id: Long = 0,
 
     @Column(name = "created_at")
-    private var createdAt: LocalDateTime,
+    val createdAt: LocalDateTime,
 
     @Column(name = "updated_at")
-    private var updatedAt: LocalDateTime,
+    var updatedAt: LocalDateTime,
 
     @Email
-    private var email: String,
+    val email: String,
 
-    private var password: String,
+    val password: String,
 
-    private var username: String,
-
-    @OneToMany(mappedBy = "user", cascade = arrayOf(CascadeType.ALL))
-    private var articleList: List<Article> = mutableListOf(),
+    val username: String,
 
     @OneToMany(mappedBy = "user", cascade = arrayOf(CascadeType.ALL))
-    private var commentList: List<Comment> = mutableListOf()
+    val articleList: List<Article> = mutableListOf(),
+
+    @OneToMany(mappedBy = "user", cascade = arrayOf(CascadeType.ALL))
+    val commentList: List<Comment> = mutableListOf()
 ) {
 
 }

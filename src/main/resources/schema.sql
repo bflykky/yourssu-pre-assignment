@@ -12,7 +12,7 @@ drop table if exists article;
 drop table if exists comment;
 
 create table user (
-    user_id bigint not null,
+    user_id bigint not null auto_increment,
     created_at datetime(6),
     updated_at datetime(6),
     email varchar(255),
@@ -22,7 +22,7 @@ create table user (
 ) engine=InnoDB;
 
 create table article (
-    article_id bigint not null,
+    article_id bigint not null auto_increment,
     created_at datetime(6),
     updated_at datetime(6),
     title varchar(255),
@@ -32,7 +32,7 @@ create table article (
 ) engine=InnoDB;
 
 create table comment (
-    comment_id bigint not null,
+    comment_id bigint not null auto_increment,
     created_at datetime(6),
     updated_at datetime(6),
     content varchar(255),
