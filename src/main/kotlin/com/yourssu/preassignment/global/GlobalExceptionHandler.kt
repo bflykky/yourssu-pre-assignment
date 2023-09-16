@@ -1,5 +1,6 @@
 package com.yourssu.preassignment.global
 
+import com.yourssu.preassignment.global.exception.DuplicateEmailException
 import com.yourssu.preassignment.global.exception.PasswordFalseException
 import com.yourssu.preassignment.global.exception.WriterAuthorizationException
 import org.springframework.http.HttpStatus
@@ -12,6 +13,17 @@ import javax.persistence.EntityNotFoundException
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
+    @ExceptionHandler(value = [DuplicateEmailException::class])
+    fun handleDuplicateEmailException(e: DuplicateEmailException): ResponseEntity<ErrorResponse> {
+        val errorResponse: ErrorResponse = ErrorResponse(
+            time = LocalDateTime.now(),
+            status = HttpStatus.BAD_REQUEST.value(),
+            message = e.message as String
+        )
+
+        return ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST)
+    }
+
     @ExceptionHandler(value = [EntityNotFoundException::class])
     fun handleEntityNotFoundException(e: EntityNotFoundException): ResponseEntity<ErrorResponse> {
         val errorResponse: ErrorResponse = ErrorResponse(

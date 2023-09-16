@@ -6,6 +6,7 @@ import com.yourssu.preassignment.domain.repository.UserRepository
 import com.yourssu.preassignment.domain.request.DeleteRequestDto
 import com.yourssu.preassignment.domain.request.UserJoinRequestDto
 import com.yourssu.preassignment.domain.response.UserJoinResponse
+import com.yourssu.preassignment.global.exception.DuplicateEmailException
 import com.yourssu.preassignment.global.exception.PasswordFalseException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -19,6 +20,8 @@ class UserService(
     private val passwordEncoder: PasswordEncoder
 ) {
     fun join(userJoinRequestDto: UserJoinRequestDto): UserJoinResponse {
+        validateDuplicateEmail(userJoinRequestDto.email)
+
         val encodedPassword: String = passwordEncoder.encode(userJoinRequestDto.password)
         val currentTime: LocalDateTime = LocalDateTime.now();
 
@@ -47,6 +50,11 @@ class UserService(
         userRepository.delete(user)
     }
 
+    fun validateDuplicateEmail(email: String) {
+        if (userRepository.existsByEmail(email)) {
+            throw DuplicateEmailException("이미 해당 이메일로 가입된 회원이 존재합니다.")
+        }
+    }
     fun validatePassword(password: String, user: User) {
         if (passwordEncoder.matches(password, user.password) == false) {
             throw PasswordFalseException("비밀번호가 일치하지 않습니다. 다시 시도해 주세요.")
