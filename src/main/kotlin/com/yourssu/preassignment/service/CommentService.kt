@@ -8,6 +8,7 @@ import com.yourssu.preassignment.repository.CommentRepository
 import com.yourssu.preassignment.repository.UserRepository
 import com.yourssu.preassignment.request.ArticleRequestDto
 import com.yourssu.preassignment.request.CommentRequestDto
+import com.yourssu.preassignment.request.DeleteRequestDto
 import com.yourssu.preassignment.response.ArticleResponse
 import com.yourssu.preassignment.response.CommentResponse
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -75,6 +76,25 @@ class CommentService(
             email = user.email,
             content = comment.content
         )
+    }
+
+    fun deleteComment(articleId: Long, commentId: Long, deleteRequestDto: DeleteRequestDto) {
+        val article: Article = articleRepository.findById(articleId).orElse(null)
+            ?: throw RuntimeException("해당 id를 가진 게시글이 존재하지 않습니다.")
+
+        val comment: Comment = commentRepository.findById(commentId).orElse(null)
+            ?: throw RuntimeException("해당 id를 가진 댓글이 존재하지 않습니다.")
+
+        val user: User = userRepository.findByEmail(deleteRequestDto.email).orElse(null)
+            ?: throw RuntimeException("해당 이메일을 가진 회원이 존재하지 않습니다.")
+
+        validatePassword(deleteRequestDto.password, user)
+
+        if (user.id != comment.user.id) {
+            throw RuntimeException("댓글의 작성자가 아니므로 삭제 권한이 없습니다.")
+        }
+
+        commentRepository.delete(comment)
     }
 
     fun validatePassword(password: String, user: User) {
