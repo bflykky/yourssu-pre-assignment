@@ -1,9 +1,9 @@
-package com.yourssu.preassignment.controller
+package com.yourssu.preassignment.domain.controller
 
-import com.yourssu.preassignment.request.DeleteRequestDto
-import com.yourssu.preassignment.request.UserJoinRequestDto
-import com.yourssu.preassignment.response.UserJoinResponse
-import com.yourssu.preassignment.service.UserService
+import com.yourssu.preassignment.domain.request.DeleteRequestDto
+import com.yourssu.preassignment.domain.request.UserJoinRequestDto
+import com.yourssu.preassignment.domain.response.UserJoinResponse
+import com.yourssu.preassignment.domain.service.UserService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

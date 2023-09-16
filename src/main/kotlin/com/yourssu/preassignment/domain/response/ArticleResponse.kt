@@ -1,4 +1,4 @@
-package com.yourssu.preassignment.response
+package com.yourssu.preassignment.domain.response
 
 class ArticleResponse(
     val articleId: Long,

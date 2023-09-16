@@ -1,4 +1,4 @@
-package com.yourssu.preassignment.request
+package com.yourssu.preassignment.domain.request
 
 import lombok.Getter
 

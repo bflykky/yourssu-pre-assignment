@@ -1,4 +1,4 @@
-package com.yourssu.preassignment.response
+package com.yourssu.preassignment.domain.response
 
 import lombok.Builder
 import lombok.Getter

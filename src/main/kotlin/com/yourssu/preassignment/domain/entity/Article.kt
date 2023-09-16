@@ -1,21 +1,21 @@
-package com.yourssu.preassignment.entity
+package com.yourssu.preassignment.domain.entity
 
 import java.time.LocalDateTime
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
-import lombok.Getter
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
+import javax.persistence.OneToMany
 
 @Entity
-@Getter
-class Comment (
+class Article (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
+    @Column(name = "article_id")
     val id: Long = 0,
 
     @Column(name = "created_at")
@@ -24,14 +24,17 @@ class Comment (
     @Column(name = "updated_at")
     var updatedAt: LocalDateTime,
 
+    var title: String,
+
     var content: String,
 
     @ManyToOne
-    @JoinColumn(name = "article_id")
-    val article: Article,
-
-    @ManyToOne
     @JoinColumn(name = "user_id")
-    val user: User
+    val user: User,
+
+    @OneToMany(mappedBy = "article", cascade = arrayOf(CascadeType.ALL))
+    val commentList: List<Comment> = mutableListOf()
 ) {
+
+
 }

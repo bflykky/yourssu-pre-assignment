@@ -1,4 +1,4 @@
-package com.yourssu.preassignment.entity
+package com.yourssu.preassignment.domain.entity
 
 import java.time.LocalDateTime
 import javax.persistence.CascadeType

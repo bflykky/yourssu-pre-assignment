@@ -1,9 +1,9 @@
-package com.yourssu.preassignment.controller
+package com.yourssu.preassignment.domain.controller
 
-import com.yourssu.preassignment.request.CommentRequestDto
-import com.yourssu.preassignment.request.DeleteRequestDto
-import com.yourssu.preassignment.response.CommentResponse
-import com.yourssu.preassignment.service.CommentService
+import com.yourssu.preassignment.domain.request.CommentRequestDto
+import com.yourssu.preassignment.domain.request.DeleteRequestDto
+import com.yourssu.preassignment.domain.response.CommentResponse
+import com.yourssu.preassignment.domain.service.CommentService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -24,14 +24,16 @@ class CommentController(
     @PatchMapping(value = ["/articles/{articleId}/comments/{commentId}"])
     fun editComment(@PathVariable("articleId") articleId: Long,
                     @PathVariable("commentId") commentId: Long,
-                    @Valid @RequestBody commentRequestDto: CommentRequestDto): CommentResponse {
+                    @Valid @RequestBody commentRequestDto: CommentRequestDto
+    ): CommentResponse {
         return commentService.editComment(articleId, commentId, commentRequestDto)
     }
 
     @DeleteMapping(value = ["/articles/{articleId}/comments/{commentId}"])
     fun deleteComment(@PathVariable("articleId") articleId: Long,
                       @PathVariable("commentId") commentId: Long,
-                      @Valid @RequestBody deleteRequestDto: DeleteRequestDto) {
+                      @Valid @RequestBody deleteRequestDto: DeleteRequestDto
+    ) {
         commentService.deleteComment(articleId, commentId, deleteRequestDto)
     }
 }
