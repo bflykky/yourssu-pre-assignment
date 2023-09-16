@@ -48,6 +48,35 @@ class CommentService(
         )
     }
 
+    fun editComment(articleId: Long, commentId: Long, commentRequestDto: CommentRequestDto): CommentResponse {
+        val article: Article = articleRepository.findById(articleId).orElse(null)
+            ?: throw RuntimeException("해당 id를 가진 게시글이 존재하지 않습니다.")
+
+        val comment: Comment = commentRepository.findById(commentId).orElse(null)
+            ?: throw RuntimeException("해당 id를 가진 댓글이 존재하지 않습니다.")
+
+        val user: User = userRepository.findByEmail(commentRequestDto.email).orElse(null)
+            ?: throw RuntimeException("해당 이메일을 가진 회원이 존재하지 않습니다.")
+
+        validatePassword(commentRequestDto.password, user)
+
+        if (user.id != comment.user.id) {
+            throw RuntimeException("댓글의 작성자가 아니므로 수정 권한이 없습니다.")
+        }
+
+        // 댓글 수정
+        comment.content = commentRequestDto.content as String
+        comment.updatedAt = LocalDateTime.now()
+
+        val editedCommentId: Long = commentRepository.save(comment).id
+
+        return CommentResponse(
+            commentId = editedCommentId,
+            email = user.email,
+            content = comment.content
+        )
+    }
+
     fun validatePassword(password: String, user: User) {
         if (passwordEncoder.matches(password, user.password) == false) {
             throw RuntimeException("비밀번호가 일치하지 않습니다. 다시 시도해 주세요.")
