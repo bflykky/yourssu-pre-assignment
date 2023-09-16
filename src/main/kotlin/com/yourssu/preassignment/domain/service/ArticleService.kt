@@ -85,7 +85,7 @@ class ArticleService(
 
     fun validateWriter(user: User, article: Article) {
         if (user.id != article.user.id) {
-            throw WriterAuthorizationException("댓글의 작성자만 수정/삭제가 가능합니다.")
+            throw WriterAuthorizationException("게시글의 작성자만 수정/삭제가 가능합니다.")
         }
     }
 
