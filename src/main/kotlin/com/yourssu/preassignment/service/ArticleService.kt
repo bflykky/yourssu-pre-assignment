@@ -5,6 +5,7 @@ import com.yourssu.preassignment.entity.User
 import com.yourssu.preassignment.repository.ArticleRepository
 import com.yourssu.preassignment.repository.UserRepository
 import com.yourssu.preassignment.request.ArticleRequestDto
+import com.yourssu.preassignment.request.DeleteRequestDto
 import com.yourssu.preassignment.response.ArticleResponse
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -67,6 +68,22 @@ class ArticleService(
             title = article.title,
             content = article.content
         )
+    }
+
+    fun deleteArticle(articleId: Long, deleteRequestDto: DeleteRequestDto) {
+        val article: Article = articleRepository.findById(articleId).orElse(null)
+            ?: throw RuntimeException("해당 id를 가진 게시글이 존재하지 않습니다.")
+
+        val user: User = userRepository.findByEmail(deleteRequestDto.email).orElse(null)
+            ?: throw RuntimeException("해당 이메일을 가진 회원이 존재하지 않습니다.")
+
+        validatePassword(deleteRequestDto.password, user)
+
+        if (user.id != article.user.id) {
+            throw RuntimeException("게시글의 작성자가 아니므로 삭제 권한이 없습니다.")
+        }
+
+        articleRepository.delete(article)
     }
 
     fun validatePassword(password: String, user: User) {
