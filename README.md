@@ -4,7 +4,7 @@
   <li><a href="#지원자의-성명-김강연">지원자의 성명: 김강연</a></li>
   <li><a href="#데이터베이스-테이블-구조">데이터베이스 테이블 구조</a></li>
   <li><a href="#API-명세">API 명세</a></li>
-  <li><a href="#구현한-예외-처리-ResponsePOSTMAN-테스트-캡쳐"></a></li>
+  <li><a href="#구현한-예외-처리-ResponsePOSTMAN-테스트-캡쳐">구현한 예외 처리 Response(POSTMAN 캡쳐)</a></li>
 </ul>
 
 ---
@@ -55,10 +55,8 @@
 ### 작성자가 아닌 회원이 댓글을 수정/삭제하려 시도한 경우
 <img width="578" alt="image" src="https://github.com/bflykky/yourssu-pre-assignment/assets/67828333/4394bc30-7ae5-4884-aad8-ae0bb6eaeb88">
 
+### 존재하지 않는 게시글에 접근 시도한 경우
+<img width="581" alt="image" src="https://github.com/bflykky/yourssu-pre-assignment/assets/67828333/2cfb2f16-3898-4354-be12-10fec5d571fd">
 
-
-
-
-
-
-
+### 존재하지 않는 댓글에 접근 시도한 경우
+<img width="566" alt="image" src="https://github.com/bflykky/yourssu-pre-assignment/assets/67828333/07f017e7-795c-4dfb-918a-27c02d2c0931">
