@@ -7,28 +7,31 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import lombok.Getter
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 
 @Entity
 @Getter
 class Comment (
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
-    private var id: Long,
+    val id: Long = 0,
 
     @Column(name = "created_at")
-    private var createdAt: LocalDateTime,
+    val createdAt: LocalDateTime,
 
     @Column(name = "updated_at")
-    private var updatedAt: LocalDateTime,
+    var updatedAt: LocalDateTime,
 
-    private var content: String,
+    var content: String,
 
     @ManyToOne
     @JoinColumn(name = "article_id")
-    private var article: Article,
+    val article: Article,
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private var user: User
+    val user: User
 ) {
 }
